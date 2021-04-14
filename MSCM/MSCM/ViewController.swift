@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import CocoaMQTT
 
 class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
+    // Instantiate CocoaMQTT as MQTTClient
+    let mqttClient = CocoaMQTT(clientID: "iOS Device", host: "192.168.0.10", port: 1883)
     
     var selectedCountry: String?
     var countryList = ["155", "160", "165", "170", "175", "180", "185", "190", "195"]
@@ -53,6 +56,20 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         toolBar.isUserInteractionEnabled = true
         textFiled.inputAccessoryView = toolBar
     }
+    
+    @IBAction func activateSwitch(_ sender: UISwitch) {
+        if sender.isOn {
+            mqttClient.publish("rpi/gpio", withString: "on")
+        }
+        else {
+            mqttClient.publish("rpi/gpio", withString: "off")
+        }
+    }
+    
+    @IBAction func submission(_ sender: UIButton) {
+        mqttClient.connect()
+    }
+    
     
     @objc func action() {
        view.endEditing(true)
