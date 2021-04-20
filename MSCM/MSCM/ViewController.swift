@@ -59,15 +59,19 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     @IBAction func activateSwitch(_ sender: UISwitch) {
         if sender.isOn {
-            mqttClient.publish("rpi/gpio", withString: "on")
+            mqttClient.publish("on", withString: "on")
+            mqttClient.publish("on", withString: selectedCountry ?? <#default value#>)
         }
         else {
-            mqttClient.publish("rpi/gpio", withString: "off")
+            mqttClient.publish("on", withString: "off")
         }
     }
     
     @IBAction func submission(_ sender: UIButton) {
+        mqttClient.publish("on", withString: "on")
+        mqttClient.publish("on", withString: selectedCountry ?? <#default value#>)
         mqttClient.connect()
+        
     }
     
     
