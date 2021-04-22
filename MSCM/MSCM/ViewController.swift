@@ -60,7 +60,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBAction func activateSwitch(_ sender: UISwitch) {
         if sender.isOn {
             mqttClient.publish("on", withString: "on")
-            mqttClient.publish("on", withString: selectedCountry ?? <#default value#>)
+            mqttClient.publish("on", withString: selectedCountry!)
         }
         else {
             mqttClient.publish("on", withString: "off")
@@ -69,7 +69,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     @IBAction func submission(_ sender: UIButton) {
         mqttClient.publish("on", withString: "on")
-        mqttClient.publish("on", withString: selectedCountry ?? <#default value#>)
+        mqttClient.publish("on", withString: selectedCountry!)
         mqttClient.connect()
         
     }
